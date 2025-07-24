@@ -1,6 +1,7 @@
 package com.metacoding.securityapp.domain.user;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -18,5 +19,11 @@ public class UserRepository {
                 .setParameter(2, password)
                 .setParameter(3, email)
                 .executeUpdate();
+    }
+
+    public User findByUsername(String username) {
+        Query query = em.createNativeQuery("select * from user_tb where username = ?", User.class);
+        query.setParameter(1, username);
+        return (User) query.getSingleResult();
     }
 }

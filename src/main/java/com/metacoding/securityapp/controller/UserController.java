@@ -24,6 +24,11 @@ public class UserController {
         return "user/join-form";
     }
 
+    @GetMapping("/login-form")
+    public String loginForm() {
+        return "user/login-form";
+    }
+
     @PostMapping("/join")
     public String join(String username, String password, String email) {
         userService.회원가입(username, password, email);

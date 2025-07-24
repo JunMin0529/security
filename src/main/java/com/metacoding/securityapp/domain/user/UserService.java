@@ -21,7 +21,7 @@ public class UserService implements UserDetailsService {
     @Transactional
     public void 회원가입(String username, String password, String email) {
         String encPassword = bCryptPasswordEncoder.encode(password);
-        userRepository.save(username, password, email);
+        userRepository.save(username, encPassword, email);
     }
 
     @Override

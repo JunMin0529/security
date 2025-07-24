@@ -16,13 +16,20 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    // UsernamePasswordAuthenticationFilter
+    // BasicAuthenticationFilter
+    //
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.csrf(configure -> configure.disable());
+
 
         http.formLogin(form -> form
                 .loginPage("/login-form")
+                .usernameParameter("email")
                 .loginProcessingUrl("/login") // username=ssar&password=1234
-                .defaultSuccessUrl("/main"));
+                .defaultSuccessUrl("/main")
+        );
 
         http.authorizeHttpRequests(
                 authorize -> authorize

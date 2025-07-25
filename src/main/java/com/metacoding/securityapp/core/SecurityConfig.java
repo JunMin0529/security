@@ -16,9 +16,9 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    // 수정한 필터명
     // UsernamePasswordAuthenticationFilter
     // BasicAuthenticationFilter
-    //
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(configure -> configure.disable());

@@ -21,6 +21,9 @@ public class SecurityConfig {
     // BasicAuthenticationFilter
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        // H2 Console은 iframe으로 동작하므로, 이 설정이 필요
+        http.headers(headers -> headers
+                .frameOptions(frameOptions -> frameOptions.sameOrigin()));
         http.csrf(configure -> configure.disable());
 
 
@@ -33,7 +36,9 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(
                 authorize -> authorize
-                        .requestMatchers("/user/**", "/main").authenticated()
+                        .requestMatchers("/main").authenticated()
+                        .requestMatchers("/user/**").hasRole("USER")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll()
         );
 
